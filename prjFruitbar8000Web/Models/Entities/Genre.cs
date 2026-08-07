@@ -15,12 +15,14 @@ namespace prjFruitbar8000Web.Models.Entities
             SongGenres = new HashSet<SongGenres>();
         }
 
+        [ScaffoldColumn(false)]
         public int GenreId { get; set; }
 
         [Required]
         [StringLength(50)]
         public string GenreName { get; set; }
 
+        [ScaffoldColumn(false)]
         public bool IsDeleted { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

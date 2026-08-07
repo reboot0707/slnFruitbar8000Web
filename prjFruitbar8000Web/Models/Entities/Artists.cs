@@ -17,12 +17,14 @@ namespace prjFruitbar8000Web.Models.Entities
         }
 
         [Key]
+        [ScaffoldColumn(false)]
         public int ArtistId { get; set; }
 
         [Required]
         [StringLength(200)]
         public string ArtistName { get; set; }
 
+        [ScaffoldColumn(false)]
         public bool IsDeleted { get; set; }
 
         [StringLength(50)]

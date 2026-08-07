@@ -9,10 +9,13 @@ namespace prjFruitbar8000Web.Models.Entities
     [Table("Fruitbar.SongGenres")]
     public partial class SongGenres
     {
+        [ScaffoldColumn(false)]
         public int Id { get; set; }
 
+        [ScaffoldColumn(false)]
         public int SongId { get; set; }
 
+        [ScaffoldColumn(false)]
         public int GenreId { get; set; }
 
         public virtual Genre Genre { get; set; }
