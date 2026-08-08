@@ -28,6 +28,7 @@ namespace prjFruitbar8000Web.Models.Entities
         [ScaffoldColumn(false)]
         public bool IsDeleted { get; set; }
 
+        [DataType(DataType.MultilineText)]
         public string Lyrics { get; set; }
 
         public int? Duration { get; set; }
