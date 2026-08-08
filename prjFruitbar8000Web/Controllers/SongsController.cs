@@ -1,13 +1,14 @@
-﻿using System;
+﻿using prjFruitbar8000Web.Models.Entities;
+using prjFruitbar8000Web.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using prjFruitbar8000Web.Models.Entities;
 
 namespace prjFruitbar8000Web.Controllers
 {
@@ -19,6 +20,22 @@ namespace prjFruitbar8000Web.Controllers
         public async Task<ActionResult> Index()
         {
             return View(await db.Songs.ToListAsync());
+        }
+
+        public ActionResult ListVM()
+        {
+            var data = db.Songs
+                .Select(s => new SongsListViewModel
+                {
+                    SongName = s.SongName,
+                    ArtistName = s.ArtistsSongs.Select(x => x.Artists.ArtistName)
+                    .FirstOrDefault(),
+                    AlbumName = s.SongsAlbums.Select(x => x.Albums.AlbumName).FirstOrDefault(),
+                    ReleaseDate = s.SongsAlbums.Select(x => x.Albums.ReleaseDate).FirstOrDefault(),
+                    CoverPic = s.SongsAlbums.Select( x => x.Albums.CoverPic).FirstOrDefault()
+                });
+
+            return View(data);
         }
 
         // GET: Songs/Details/5
@@ -47,7 +64,7 @@ namespace prjFruitbar8000Web.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "SongId,SongName,IsDeleted,Lyrics,Duration")] Songs songs)
+        public async Task<ActionResult> Create([Bind(Include = "SongId,SongName,Lyrics,Duration")] Songs songs)
         {
             if (ModelState.IsValid)
             {

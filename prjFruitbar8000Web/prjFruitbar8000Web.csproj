@@ -134,6 +134,7 @@
     <Compile Include="Models\Entities\SongGenres.cs" />
     <Compile Include="Models\Entities\Songs.cs" />
     <Compile Include="Models\Entities\SongsAlbums.cs" />
+    <Compile Include="Models\ViewModels\SongsListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +193,7 @@
     <Content Include="Views\Songs\Details.cshtml" />
     <Content Include="Views\Songs\Edit.cshtml" />
     <Content Include="Views\Songs\Index.cshtml" />
+    <Content Include="Views\Songs\ListVM.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
