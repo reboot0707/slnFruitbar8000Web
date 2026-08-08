@@ -22,6 +22,7 @@ namespace prjFruitbar8000Web.Controllers
             return View(await db.Songs.ToListAsync());
         }
 
+        // TODO: 處理直接新增歌曲, 但對應專輯, 創作者沒關聯到的情況 (先處理一起新增的介面, 再處理手動新增導致的例外情形)
         public async Task<ActionResult> ListVM()
         {
             var beQueryed = await db.Songs
