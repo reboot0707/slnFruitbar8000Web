@@ -22,9 +22,9 @@ namespace prjFruitbar8000Web.Controllers
             return View(await db.Songs.ToListAsync());
         }
 
-        public ActionResult ListVM()
+        public async Task<ActionResult> ListVM()
         {
-            var data = db.Songs
+            var toBeQueryed = db.Songs
                 .Select(s => new SongsListViewModel
                 {
                     SongName = s.SongName,
@@ -34,6 +34,8 @@ namespace prjFruitbar8000Web.Controllers
                     ReleaseDate = s.SongsAlbums.Select(x => x.Albums.ReleaseDate).FirstOrDefault(),
                     CoverPic = s.SongsAlbums.Select( x => x.Albums.CoverPic).FirstOrDefault()
                 });
+
+            var data = await toBeQueryed.ToListAsync();
 
             return View(data);
         }
