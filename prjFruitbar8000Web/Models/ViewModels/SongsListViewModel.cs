@@ -13,9 +13,9 @@ namespace prjFruitbar8000Web.Models.ViewModels
         [Display(Name ="歌曲名稱")]
         public string SongName { get; set; }
 
-        [StringLength(200)]
+        [StringLength(400)]
         [Display(Name = "創作者")]
-        public string ArtistName { get; set; }
+        public string ArtistNameList { get; set; }
 
         [StringLength(200)]
         [Display(Name = "專輯名稱")]

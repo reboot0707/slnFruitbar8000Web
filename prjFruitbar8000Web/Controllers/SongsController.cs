@@ -24,18 +24,25 @@ namespace prjFruitbar8000Web.Controllers
 
         public async Task<ActionResult> ListVM()
         {
-            var toBeQueryed = db.Songs
+            var beQueryed = await db.Songs
+                .Select(q => new
+                {  // 先用匿名型別解決查詢語法問題
+                    q.SongName,
+                    ArtistNameListQuery = q.ArtistsSongs.Select(x => x.Artists.ArtistName),
+                    AlbumName = q.SongsAlbums.Select(x => x.Albums.AlbumName).FirstOrDefault(),
+                    ReleaseDate = q.SongsAlbums.Select(x => x.Albums.ReleaseDate).FirstOrDefault(),
+                    CoverPic = q.SongsAlbums.Select( x => x.Albums.CoverPic).FirstOrDefault()
+                }).ToListAsync();
+
+            var data = beQueryed
                 .Select(s => new SongsListViewModel
                 {
                     SongName = s.SongName,
-                    ArtistName = s.ArtistsSongs.Select(x => x.Artists.ArtistName)
-                    .FirstOrDefault(),
-                    AlbumName = s.SongsAlbums.Select(x => x.Albums.AlbumName).FirstOrDefault(),
-                    ReleaseDate = s.SongsAlbums.Select(x => x.Albums.ReleaseDate).FirstOrDefault(),
-                    CoverPic = s.SongsAlbums.Select( x => x.Albums.CoverPic).FirstOrDefault()
+                    ArtistNameList = string.Join(", ", s.ArtistNameListQuery.ToList()),
+                    AlbumName = s.AlbumName,
+                    ReleaseDate = s.ReleaseDate,
+                    CoverPic = s.CoverPic,
                 });
-
-            var data = await toBeQueryed.ToListAsync();
 
             return View(data);
         }
