@@ -48,6 +48,29 @@ namespace prjFruitbar8000Web.Controllers
             return View(data);
         }
 
+        // GET: Songs/CreateVM
+        public ActionResult CreateVM()
+        {
+            return View();
+        }
+
+        // POST: Songs/Create
+        // 若要避免過量張貼攻擊，請啟用您要繫結的特定屬性。
+        // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateVM([Bind(Include = "SongId,SongName,Lyrics,Duration")] Songs songs)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Songs.Add(songs);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            return View(songs);
+        }
+
         // GET: Songs/Details/5
         public async Task<ActionResult> Details(int? id)
         {
